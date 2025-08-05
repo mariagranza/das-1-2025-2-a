@@ -23,6 +23,7 @@ L - Liskov Substitution Principle (Princípio da substituição de Liskov)
 I - Interface Segregation Principle (Princípio da Segregação da Interface) 
 
 Interface que seja bem escrita e que defina como vai ser a comunicação entre essas duas classes
+Cada interface tem sua responsabilidade
 
 
 ------------------------------------------------------------------------------------
