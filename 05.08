@@ -1,0 +1,29 @@
+Robert Martin - referência código limpo
+
+SOLID: Usar a orientação a objetos do jeito mais correto possível.
+
+-----------------------------------------------------------------------------------
+S - Single responsability principle (Princípio da responsabilidade única) 
+
+Relação direta com a coesão
+Separar as coisas
+MVC (dados, html, controla a tela)
+Responsabilidade única na hora de construir uma interface gráfica
+
+É um conceito na programação orientada a objetos que estabelece que uma classe deve ter apenas uma única razão para mudar, que deve ser responsável por uma única funcionalidade ou tarefa específica, ou seja,
+uma classe não deve ser sobrecarregada com múltiplas responsabilidades que não estão relacionadas entre si.
+
+------------------------------------------------------------------------------------
+O - Open-Closed Principle (Princípio Aberto-Fechado) 
+
+------------------------------------------------------------------------------------
+L - Liskov Substitution Principle (Princípio da substituição de Liskov) 
+
+------------------------------------------------------------------------------------
+I - Interface Segregation Principle (Princípio da Segregação da Interface) 
+
+Interface que seja bem escrita e que defina como vai ser a comunicação entre essas duas classes
+
+
+------------------------------------------------------------------------------------
+D - Dependency Inversion Principle (Princípio da inversão da dependência) 
