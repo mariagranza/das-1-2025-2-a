@@ -16,8 +16,14 @@ uma classe não deve ser sobrecarregada com múltiplas responsabilidades que nã
 ------------------------------------------------------------------------------------
 O - Open-Closed Principle (Princípio Aberto-Fechado) 
 
+As entidades de software (classes, módulos, funções, etc.) devem ser abertas para extensão, mas fechadas para modificação. 
+O comportamento de um módulo pode ser estendido sem alterar seu código-fonte. 
+
 ------------------------------------------------------------------------------------
 L - Liskov Substitution Principle (Princípio da substituição de Liskov) 
+
+Os objetos de uma classe base devem poder ser substituídos por objetos de suas subclasses sem que o comportamento do programa seja alterado. 
+Se uma classe A é subtipo de uma classe B, então objetos de tipo A devem poder ser usados em qualquer lugar onde objetos de tipo B são esperados, sem causar erros ou comportamentos inesperados. 
 
 ------------------------------------------------------------------------------------
 I - Interface Segregation Principle (Princípio da Segregação da Interface) 
