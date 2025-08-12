@@ -28,3 +28,6 @@ Cada interface tem sua responsabilidade
 
 ------------------------------------------------------------------------------------
 D - Dependency Inversion Principle (Princípio da inversão da dependência) 
+
+Uma classe deve depender diretamente de uma abstração e não de uma impleentação concreta
+É um princípio que afirma que módulos de alto nível não devem depender de módulos de baixo nível, e que ambos devem depender de abstrações. 
