@@ -25,6 +25,6 @@ public class Publisher {
                 .buildClient();
 
         senderClient.sendMessage(
-                new ServiceBusMessage("Ian: Bom dia!"));
+                new ServiceBusMessage("Maria: Prezado cliente, boa tarde!"));
     }
 }
