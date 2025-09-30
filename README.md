@@ -1,5 +1,3 @@
-04/08
-
 Artigo: Pensamento Arquitetônico - Fundamentos da Arquitetura de Software
 
 1- Resuma a diferença entre: Arquitetura e Design
@@ -23,8 +21,6 @@ como bancos de dados, redes, cloud, segurança, metodologias ágeis, conseguindo
 Barra vertical do T:representa a profundidade em uma área específica onde o arquiteto deve ter especialização sólida em algum domínio técnico 
 como por exemplo, integração de sistemas, microsserviços, IA...
 
-
-05/08
 
 1- O que é abstração?
 
@@ -83,3 +79,209 @@ D - Dependency Inversion Principle (Princípio da inversão da dependência)
 
 Uma classe deve depender diretamente de uma abstração e não de uma impleentação concreta
 É um princípio que afirma que módulos de alto nível não devem depender de módulos de baixo nível, e que ambos devem depender de abstrações. 
+
+
+-----------------------------------------------------------------------------------
+
+1. Conceitos Fundamentais
+
+-Abstração
+
+Processo de transformar problemas do mundo real em soluções de software, destacando apenas os aspectos essenciais.
+
+Permite focar no o que um objeto faz e não como ele faz.
+
+Facilita a modelagem de sistemas complexos e melhora o entendimento do problema.
+
+-Ocultamento de Informação (Encapsulamento)
+
+Esconde os detalhes internos da implementação, expondo apenas o necessário para uso externo.
+
+Garante integridade dos dados, organiza o código e evita interferências externas.
+
+Exemplo: atributos privados acessados apenas por getters e setters.
+
+-Débito Técnico
+
+Resultado de escolhas rápidas ou soluções fáceis que podem gerar problemas no futuro.
+
+Consequências: aumento de erros, dificuldade de manutenção, necessidade de reescrever código.
+
+Pode ocorrer por prazos curtos, falta de conhecimento ou má implementação.
+
+-Coesão
+
+Cada classe ou módulo deve ter uma única responsabilidade.
+
+Código coeso é mais fácil de entender, testar e manter.
+
+Exemplo: uma classe Cliente deve lidar apenas com dados e comportamentos relacionados ao cliente.
+
+-Acoplamento
+
+Mede a dependência entre classes ou módulos.
+
+Baixo acoplamento: comunicação via interfaces; alterações em uma classe não afetam a outra.
+
+Alto acoplamento: dependência direta de código interno ou de variáveis globais; mudanças podem quebrar o sistema.
+
+
+
+2. UML e Padrões de Arquitetura
+
+-UML (Unified Modeling Language)
+
+Linguagem de modelagem que representa visualmente classes, objetos e suas relações.
+
+Herança: seta vazada → uma classe herda atributos/métodos de outra.
+
+Associação: seta cheia → relação entre classes.
+
+Implementação: seta pontilhada e vazada → classe implementa interface.
+
+-MVC (Model-View-Controller)
+
+Model: gerencia dados e lógica de negócio.
+
+View: apresenta informações ao usuário.
+
+Controller: controla fluxo e regras do sistema.
+
+
+3. Princípios de Código
+SOLID
+
+S – Single Responsibility Principle: uma classe deve ter apenas um motivo para mudar.
+
+O – Open/Closed Principle: classes devem estar abertas para extensão, mas fechadas para modificação.
+
+L – Liskov Substitution Principle: subclasses devem substituir superclasses sem alterar o comportamento esperado.
+
+I – Interface Segregation Principle: interfaces devem ser pequenas, coesas e específicas; evite obrigar classes a implementar métodos desnecessários.
+
+D – Dependency Inversion Principle: classes de alto nível devem depender de abstrações e não de implementações concretas.
+
+
+-Composição x Herança
+
+Prefira composição sempre que possível; herança só quando subclasses não puderem exercer o mesmo papel que a classe base.
+
+Exemplo: Cachorro e Gato herdam de Animal, mas um não pode ser o outro.
+
+
+-Princípio de Demeter (Lei do Menor Conhecimento)
+
+Uma classe/método deve conhecer apenas o necessário para executar sua função.
+
+Acesso permitido apenas a:
+
+métodos da própria classe
+
+objetos passados como parâmetro
+
+objetos criados dentro do método
+
+atributos da própria classe
+
+Evita cadeias longas de chamadas (ex.: pedido.getCliente().getEndereco().getCidade() → ruim; pedido.getCidadeCliente() → bom).
+
+
+4. Arquitetura de Software
+Características Arquiteturais
+
+Requisitos não funcionais que definem qualidade do sistema.
+
+Exemplos: desempenho, escalabilidade, segurança, confiabilidade, manutenibilidade.
+
+Nenhum sistema consegue atender todos os requisitos não funcionais simultaneamente.
+
+
+-Decisões Arquiteturais
+
+Definem como o sistema será construído, escolhendo tecnologias, padrões e limites.
+
+Exemplo: camada de apresentação não acessa diretamente o banco de dados, microsserviços vs. monólito.
+
+
+-Princípios de Design
+
+Orientações para criação do sistema, mas não regras obrigatórias.
+
+Exemplo: comunicação assíncrona entre microsserviços para melhorar escalabilidade.
+
+
+-Trade-offs
+
+Toda decisão arquitetural envolve vantagens e desvantagens.
+
+É necessário equilibrar atributos conflitantes, como desempenho, segurança e manutenibilidade.
+
+
+5. Estilos de Comunicação
+Publish/Subscribe (Tópicos)
+
+Comunicação assíncrona, um-para-muitos.
+
+Publisher envia evento para canal; canal distribui para múltiplos subscribers.
+
+Benefício: desacoplamento e facilidade de escalar o sistema.
+
+Protocolos: MQTT, AMQP, WebSocket.
+
+Exemplos: RabbitMQ, HiveMQ, SNS.
+
+Fan-out: uma mensagem enviada é recebida por vários consumidores simultaneamente.
+
+
+-Fila (Queue – FIFO)
+
+Comunicação um-para-um.
+
+Mensagens são processadas na ordem de chegada (First In, First Out).
+
+Conceitos: ENQUEUE (adicionar), DEQUEUE (retirar), Sender/Receiver, Buffer, Pooling.
+
+Implementações: RabbitMQ, AWS SQS, Azure ServiceBus.
+
+Melhor para confiabilidade e processamento garantido.
+
+
+6. Papel do Arquiteto
+
+Tomar decisões: define tecnologias, padrões e limites do sistema.
+
+Analisar continuamente: revisar e melhorar a arquitetura ao longo do tempo.
+
+Manter-se atualizado: acompanhar tendências e melhores práticas.
+
+Assegurar conformidade: garantir que padrões e decisões sejam respeitados.
+
+Experiência diversificada: conhecer diversas tecnologias e ambientes.
+
+Conhecimento do domínio: entender regras de negócio e apoiar decisões técnicas.
+
+Habilidades interpessoais: liderança, comunicação, motivação e negociação.
+
+Gestão política: lidar com hierarquia, negociar prazos e influenciar decisões.
+
+
+-Arquiteto Modelo T
+
+Horizontal: conhecimento amplo em várias tecnologias e ambientes.
+
+Vertical: especialização profunda em uma área específica.
+
+
+7. Práticas Modernas
+DevOps
+
+Integra desenvolvimento e operações para entregar valor contínuo ao cliente.
+
+Ciclo: Planejamento → Criação → Integração Contínua → Implantação → Monitoramento → Feedback.
+
+Cultura DevOps: colaboração entre todas as equipes, não apenas desenvolvedores ou infraestrutura.
+
+
+-Twelve-Factor App
+
+Boas práticas para aplicações SaaS modernas: portabilidade, automação, escalabilidade, implantação simples, independente da linguagem ou serviços utilizados.
