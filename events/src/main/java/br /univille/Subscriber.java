@@ -11,7 +11,7 @@ public class Subscriber {
         var topic = "topic-das1-a";
 
         String chave = System.getenv("CHAVE");
-        String subscription = "subscription-iansergio";
+        String subscription = "subscription-mariagranza";
 
         ServiceBusProcessorClient processorClient = new ServiceBusClientBuilder()
                 .fullyQualifiedNamespace(server)
