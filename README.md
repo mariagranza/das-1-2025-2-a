@@ -285,3 +285,20 @@ Cultura DevOps: colaboração entre todas as equipes, não apenas desenvolvedore
 -Twelve-Factor App
 
 Boas práticas para aplicações SaaS modernas: portabilidade, automação, escalabilidade, implantação simples, independente da linguagem ou serviços utilizados.
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+2°BIMESTRE
+
+29/09
+
+https://learn.microsoft.com/pt-br/azure/architecture/patterns/circuit-breaker?wt.mc_id=AZ-MVP-5003638
+
+Circuit breaker: protejer a comunicação entre sistemas.
+
+3 estados: fechado 'A' (esta tudo certo), aberto 'B' (deu erro) e meio aberto 'PONTE ENTRE A e B' (vendo se pode fechar ou se tem que voltar para o aberto).
+
+* A recuperação do sistema é baseada em operações externas, como restaurar ou reiniciar um componente com falha ou reparar uma conexão de rede.
+
+- Na primeira falha podemos ir para o aberto, porém, podemos tentamos o estado meio aberto, para tentarmos recuperá-lo sem muitos recursos 
