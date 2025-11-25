@@ -233,15 +233,219 @@ Cultura DevOps: colaboração entre todas as equipes, não apenas desenvolvedore
 
 Boas práticas para aplicações SaaS modernas: portabilidade, automação, escalabilidade, implantação simples, independente da linguagem ou serviços utilizados.
 
-2°BIMESTRE
+----------------------------------------------------------------------------------------
 
-29/09
+2°BIMESTRE
 
 https://learn.microsoft.com/pt-br/azure/architecture/patterns/circuit-breaker?wt.mc_id=AZ-MVP-5003638
 
-Circuit breaker: protejer a comunicação entre sistemas.
+Circuit breaker: O Circuit Breaker é um padrão criado para evitar que uma aplicação continue enviando requisições para serviços que estão falhando ou demorando demais para responder — situação bastante comum em sistemas distribuídos. Sua função é impedir que erros transitórios se tornem problemas maiores, protegendo todo o ecossistema de chamadas remotas repetidas e inúteis.
 
-3 estados: fechado 'A' (esta tudo certo), aberto 'B' (deu erro) e meio aberto 'PONTE ENTRE A e B' (vendo se pode fechar ou se tem que voltar para o aberto).
+Esse mecanismo funciona alternando entre três estados:
 
-A recuperação do sistema é baseada em operações externas, como restaurar ou reiniciar um componente com falha ou reparar uma conexão de rede.
-Na primeira falha podemos ir para o aberto, porém, podemos tentamos o estado meio aberto, para tentarmos recuperá-lo sem muitos recursos
+• Fechado (Closed)
+As requisições são processadas normalmente. Caso o volume de falhas ultrapasse um limite definido, o mecanismo “abre” e interrompe as chamadas.
+
+• Aberto (Open)
+As requisições deixam de ser encaminhadas para o serviço que está apresentando problemas. Após um período de espera determinado, o estado muda para o modo de teste.
+
+• Meio Aberto (Half-Open)
+Nesse estágio intermediário, apenas algumas requisições são permitidas para verificar se o serviço já se recuperou. Se der tudo certo, o circuito “fecha” novamente; caso contrário, volta a permanecer “aberto”.
+
+Características Arquiteturais
+
+As características arquiteturais representam qualidades essenciais de um software. Elas orientam decisões importantes de projeto e influenciam diretamente na eficiência e no comportamento do sistema. Para serem consideradas relevantes, precisam:
+
+Tratar de aspectos fora do domínio de negócio;
+
+Impactar a estrutura da solução;
+
+Ser fundamentais para o sucesso da aplicação.
+
+Essas características podem ser agrupadas em três categorias:
+
+1. Características Operacionais
+
+Relacionadas a como o sistema se comporta em execução.
+
+Termo	Descrição
+Disponibilidade	Período em que o sistema deve permanecer funcional.
+Continuidade	Capacidade de recuperação após eventos críticos.
+Desempenho	Rapidez e capacidade de resposta.
+Recuperabilidade	Tempo necessário para restaurar o sistema depois de falhas.
+Confiabilidade / Segurança	Resistência a falhas e importância operacional.
+Robustez	Resistência a erros internos e externos.
+Escalabilidade	Habilidade de crescer conforme o uso aumenta.
+2. Características Estruturais
+
+Relacionadas ao design interno e qualidade técnica do software.
+
+Termo	Descrição
+Configuração	Facilidade de ajustar parâmetros conforme necessidade.
+Extensão	Facilidade para incluir funcionalidades novas.
+Instalabilidade	Simplicidade de instalação em diferentes ambientes.
+Reutilização	Uso de módulos e componentes em soluções distintas.
+Localização	Suporte a idiomas e formatos regionais.
+Manutenção	Agilidade para modificar ou corrigir o sistema.
+Portabilidade	Capacidade de rodar em diferentes plataformas.
+Suporte	Ferramentas e mecanismos para diagnóstico de problemas.
+Atualização	Facilidade de substituir versões antigas por novas.
+3. Características Transversais
+
+Atravessam várias áreas do sistema e não se encaixam perfeitamente em categorias únicas.
+
+Termo	Descrição
+Acessibilidade	Uso por pessoas com necessidades diversas.
+Armazenamento	Regras para retenção ou descarte de dados.
+Autenticação	Garantia da identidade do usuário.
+Autorização	Controle sobre o que cada usuário pode acessar.
+Legalidade	Conformidade com leis e normas aplicáveis.
+Privacidade	Proteção das informações contra acessos indevidos.
+Segurança	Criptografia e proteção contra ataques.
+Suporte	Recursos operacionais para identificar e registrar falhas.
+Usabilidade / Viabilidade	Facilidade de aprendizado e uso da aplicação.
+A Arquitetura “menos pior”
+
+Projetar um software envolve equilibrar qualidades conflitantes (ex.: segurança e desempenho). Não existe arquitetura perfeita — existe a que atende melhor ao contexto e aos objetivos do negócio. O papel do arquiteto é encontrar o ponto ideal entre compromissos, e não maximizar tudo ao mesmo tempo.
+
+CQRS (Command Query Responsibility Segregation)
+
+O CQRS defende a separação entre modelos de escrita e leitura para melhorar desempenho, escalabilidade e clareza. A ideia é que as operações de atualização e consulta sigam caminhos diferentes, cada um otimizado para sua função.
+
+Com o crescimento de uma aplicação, surgem problemas como:
+
+Formatos divergentes entre estruturas de leitura e escrita;
+
+Conflitos de concorrência (locks);
+
+Quedas de performance por acesso simultâneo;
+
+Dificuldade de controlar segurança em operações mistas.
+
+A solução: separar o modelo de comandos (escrita) do modelo de consultas (leitura).
+
+Modelo de Escrita
+
+Processa comandos e atualiza dados.
+
+Valida regras de negócio.
+
+Garante consistência das transações.
+
+Modelo de Leitura
+
+Prioriza performance em consultas.
+
+Gera objetos específicos para leitura (DTOs/projeções).
+
+Evita regras complexas, tornando a operação mais rápida.
+
+Mesmo compartilhando o mesmo banco, cada modelo trabalha de forma independente.
+
+Retry Pattern
+
+Esse padrão é usado quando uma operação falha temporariamente, permitindo novas tentativas controladas. É comum em sistemas distribuídos e ambientes em nuvem, onde interrupções momentâneas são frequentes.
+
+Falhas transitórias incluem:
+
+Oscilações de rede;
+
+Serviços temporariamente offline;
+
+Timeouts por sobrecarga.
+
+Estratégias de repetição:
+
+Cancelar: Quando a falha é permanente (ex.: senha inválida).
+
+Repetir imediatamente: Adequado para erros raros.
+
+Repetir com atraso: A estratégia mais utilizada.
+
+Tipos de atraso:
+
+Incremental: Crescimento linear.
+
+Exponencial (Backoff): Intervalos cada vez maiores para evitar sobrecarga.
+
+Fundamentos de Padrões Arquiteturais
+
+Os estilos arquiteturais ajudam a organizar sistemas e orientar decisões de design.
+
+Grande Bola de Lama
+
+Quando o sistema evolui sem controle, vira um amontoado de código cheio de remendos e difícil de manter.
+
+Arquitetura Monolítica
+
+Uma estrutura única onde tudo roda em um único processo. Tradicional, simples, porém limitada para necessidades complexas.
+
+Cliente/Servidor
+
+Divide responsabilidades entre a interface (cliente) e o processamento (servidor).
+
+Desktop + Servidor de Banco de Dados
+
+O cliente trata da exibição e interação; o servidor cuida da manipulação e armazenamento dos dados.
+
+Navegador + Servidor Web
+
+Modelo clássico da web moderna. O navegador é leve e o servidor web centraliza a lógica.
+
+Arquitetura em Camadas (N-Tier)
+
+Modelo tradicional onde a aplicação é organizada em camadas horizontais, cada uma com sua responsabilidade:
+
+Apresentação
+
+Camada Comercial (Negócio)
+
+Persistência
+
+Banco de Dados
+
+Mudanças por funcionalidade atravessam todas as camadas, já que a divisão é técnica, não orientada ao domínio.
+
+Camada Fechada: Respeita a hierarquia.
+Camada Aberta: Permite pular camadas (mais flexível, porém mais frágil).
+
+Sinkhole: Quando as camadas passam requisições adiante sem acrescentar valor.
+
+Arquitetura Pipeline
+
+Modelo baseado em fluxo contínuo de dados. É composto por:
+
+Filtros: etapas de processamento independentes;
+
+Canais: caminhos unidirecionais entre os filtros.
+
+Tipos de filtros:
+Produtor, Transformador, Verificador e Consumidor.
+
+Arquitetura Microkernel
+
+Muito usada em produtos instaláveis e sistemas modulares. Divide-se em:
+
+Sistema Central: núcleo mínimo e estável;
+
+Plug-ins: módulos especializados que podem ser adicionados ou substituídos.
+
+A comunicação normalmente ocorre via chamadas diretas, mas pode ser feita por serviços externos.
+
+Microsserviços
+
+Arquitetura baseada em pequenos serviços independentes, cada um responsável por um domínio específico. Fortemente influenciada pelo DDD, principalmente pelos Bounded Contexts.
+
+Características principais:
+
+Serviços autônomos e isolados;
+
+Banco de dados próprio por serviço;
+
+Comunicação síncrona ou assíncrona;
+
+Foco em independência e escalabilidade;
+
+Granularidade definida por finalidade, transações e comunicação mínima.
+
+Microsserviços trazem flexibilidade e rapidez evolutiva, porém aumentam complexidade operacional.
